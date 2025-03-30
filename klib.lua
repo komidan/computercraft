@@ -102,7 +102,7 @@ end
 --- ### Usage:
 --- ```lua
 --- local p = util.getPeripherals()
---- rednet.open(p.modem)
+--- rednet.open(peripheral.getName(p.modem))
 --- ```
 --- Possible peripheral keys are:
 --- `command`, `computer`, `drive`, `drive`, `modem`, `monitor`, `printer`, `redstone_relay`, `speaker`
