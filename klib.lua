@@ -39,6 +39,15 @@ function net.formatMessage(from, to, message, protocol)
 	return log
 end
 
+--- Prints a message formatted using `net.formatMessage()`
+--- @param from integer
+--- @param to integer
+--- @param message message
+--- @return nil
+function net.log(from, to, message, protocol)
+	print(net.formatMessage(from, to, message, protocol))
+end
+
 --- Creates a message, adding relevent data to each message
 --- because having some form of order to this makes sense.
 --- @param data table  table of the data you wish to trasmit
