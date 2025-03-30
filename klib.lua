@@ -47,12 +47,10 @@ end
 --- @return message # returns the data + the 'relevant data'
 --- @overload fun(data: table)
 function knet.msg(data, status_code)
-	local timestamp = textutils.formatTime(os.date("%D %T"))
-
 	---@type message
 	local message = {
 		data = data,
-		timestamp = timestamp,
+		timestamp = os.date("%D %T"),
 		status_code = status_code,
 	}
 	return message
