@@ -1,8 +1,8 @@
 -- komi library
 -- built for CC: Tweaked 1.21.1
 
-local knet = {}
-local kutil = {}
+local net = {}
+local util = {}
 
 --- @alias message table
 --- | 'data' your data...
@@ -28,7 +28,7 @@ local STATUS_CODES = {
 --- @param to integer
 --- @param message message
 --- @return string 
-function knet.formatMessage(from, to, message, protocol)
+function net.formatMessage(from, to, message, protocol)
 	local log = (
 		message.timestamp .. ","  ..
 		tostring(from)    .. "->" ..
@@ -45,7 +45,7 @@ end
 --- @param status_code integer status code provided by `STATUS_CODES` table
 --- @return message # returns the data + the 'relevant data'
 --- @overload fun(data: table)
-function knet.msg(data, status_code)
+function net.msg(data, status_code)
 	---@type message
 	local message = {
 		data = data,
@@ -55,12 +55,12 @@ function knet.msg(data, status_code)
 	return message
 end
 
---- Sends a message over rednet with a message created with `knet.msg()`
+--- Sends a message over rednet with a message created with `net.msg()`
 --- @param recipient integer id of the computer receiving the message
 --- @param message message
 --- @param protocol string | nil protocol to send message over
 --- @return boolean # returns true if message was sent successfully
-function knet.send(recipient, message, protocol)
+function net.send(recipient, message, protocol)
 	local success = nil
 	if protocol then
 		success = rednet.send(recipient, message)
@@ -72,7 +72,7 @@ end
 --- Receives a message or broadcast over rednet.
 --- @param timeout number how long should you wait before eventually returning nil
 --- @return integer sender, message message, string protocol
-function knet.receive(timeout)
+function net.receive(timeout)
 	-- set timeout to nil if not provided
 	timeout = timeout or nil
 
@@ -83,7 +83,7 @@ end
 --- `rednet.broadcast()` and pass my message type. But hey, why not?
 --- @param message message
 --- @param protocol string | nil
-function knet.broadcast(message, protocol)
+function net.broadcast(message, protocol)
 	if protocol then
 		rednet.broadcast(message)
 	end
@@ -92,13 +92,13 @@ end
 
 --- ### Usage:
 --- ```lua
---- local p = kutil.getPeripherals()
+--- local p = util.getPeripherals()
 --- rednet.open(p.modem)
 --- ```
 --- Possible peripheral keys are:
 --- `command`, `computer`, `drive`, `drive`, `modem`, `monitor`, `printer`, `redstone_relay`, `speaker`
 --- @return table # list of all peripherals connected
-function kutil.getPeripherals()
+function util.getPeripherals()
     local peripherals = {}
     local names = peripheral.getNames()
     for i = 0, #names do
@@ -111,8 +111,8 @@ end
 
 -- funktyouns
 return {
-	knet = knet,
-	kutil = kutil,
+	net = net,
+	util = util,
 
 	STATUS_CODES = STATUS_CODES,
 }
