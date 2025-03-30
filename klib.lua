@@ -82,7 +82,7 @@ end
 --- @param timeout number how long should you wait before eventually returning nil
 --- @return integer sender, message message, string protocol
 function net.receive(timeout)
-	-- set timeout to nil if not provided
+	-- set timeout to 0 if not provided
 	timeout = timeout or 0
 
 	return rednet.receive(timeout)
