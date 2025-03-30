@@ -30,13 +30,12 @@ local STATUS_CODES = {
 --- @return string 
 function knet.formatMessage(from, to, message, protocol)
 	local log = (
-		message.timestamp .. "," ..
+		message.timestamp .. ","  ..
 		tostring(from)    .. "->" ..
-		tostring(to)      .. "," ..
-		protocol          .. "," ..
-		textutils.serialiseJSON(message.data)
+		tostring(to)      .. ","  ..
+		protocol          .. ","  ..
+		textutils.serialize(message.data, { compact = true })
 	)
-	print(log)
 	return log
 end
 
