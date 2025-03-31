@@ -223,6 +223,16 @@ function util.getSystemInfo(...)
 	}
 end
 
+--- @param table table
+--- @return table 
+function util.getTableKeys(table)
+	local keys = {}
+	for key, _ in pairs(table) do
+		keys[#keys + 1] = key
+	end
+	return keys
+end
+
 -- funktyouns
 return {
 	net = net,
