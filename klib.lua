@@ -54,11 +54,11 @@ end
 --- @param status_code integer status code provided by `STATUS_CODES` table
 --- @return message # returns the data + the 'relevant data'
 --- @overload fun(data: table)
-function net.msg(data, status_code)
+function net.message(data, status_code)
 	---@type message
 	local message = {
 		data = data,
-		timestamp = os.date("%D %T"),
+		timestamp = os.date("%D %T", math.floor(os.epoch("utc") / 1000)),
 		status_code = status_code,
 	}
 	return message
