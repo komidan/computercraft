@@ -27,7 +27,7 @@ local STATUS_CODES = {
 --- @param from integer
 --- @param to integer
 --- @param message message
---- @return string 
+--- @return string
 function net.formatMessage(from, to, message, protocol)
 	local log = (
 		message.timestamp .. ","  ..
@@ -136,8 +136,8 @@ local function _drive(drive)
 	if hasData then
 		mountPath = "/" .. tostring(drive.getMountPath())
 	end
-	
-	
+
+
 	return {
 		label     = drive.getDiskLabel(),
 		id        = drive.getDiskID(),
@@ -153,7 +153,7 @@ local function _modem(modem)
 			table.insert(oc, i)
 		end
 	end
-	
+
 	return {
 		isWireless   = modem.isWireless(),
 		channels     = oc,
@@ -164,7 +164,7 @@ end
 local function _monitor(monitor)
 	local width, height = monitor.getSize()
 	local pos_x, pos_y = monitor.getCursorPos()
-	
+
 	return {
 		textScale = monitor.getTextScale(),
 		cursorPos = { pos_x, pos_y },
@@ -205,10 +205,9 @@ function util.getSystemInfo(...)
 		redstone_relay = _redstone_relay,
 		speaker        = _speaker
 	}
-	
+
 	for _, key in ipairs(args) do
 		local peripheral_param = peripheral.find(key)
-		print(key)
 		if handlers[key] then
 			peripherals[key] = handlers[key](peripheral_param)
 		end
@@ -224,7 +223,7 @@ function util.getSystemInfo(...)
 end
 
 --- @param table table
---- @return table 
+--- @return table
 function util.getTableKeys(table)
 	local keys = {}
 	for key, _ in pairs(table) do
