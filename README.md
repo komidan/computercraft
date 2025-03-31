@@ -4,13 +4,13 @@ A repo for all (useful... maybe?) code I've written. Written on MC Fabric 1.21.1
 
 [CC: Tweaked](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked) Mod Pages: [Modrinth](https://modrinth.com/mod/cc-tweaked), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked)
 
-Use this command in any turtle/computer terminal to get the `klib.lua` file.
+Use this command in any turtle/computer terminal to get the `chocolat.lua` file.
 ```txt
-wget https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/klib.lua
+wget https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/chocolat.lua
 ```
-Requiring `klib.lua` in a lua script:
+Requiring `chocolat.lua` in a lua script:
 ```lua
-local klib = require(path_to_file)
+local chocolat = require(path_to_file)
 ```
 Requiring the file updates the `rednet` table with more functions:
 ```lua
