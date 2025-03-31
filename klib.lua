@@ -27,7 +27,7 @@ local STATUS_CODES = {
 --- @param from integer
 --- @param to integer
 --- @param message message
---- @return string
+--- @return string 
 function net.formatMessage(from, to, message, protocol)
 	local log = (
 		message.timestamp .. ","  ..
@@ -62,41 +62,6 @@ function net.msg(data, status_code)
 		status_code = status_code,
 	}
 	return message
-end
-
---- Sends a message over rednet with a message created with `net.msg()`
---- @param recipient integer id of the computer receiving the message
---- @param message message
---- @param protocol string | nil protocol to send message over
---- @return boolean # returns true if message was sent successfully
-function net.send(recipient, message, protocol)
-	local success = nil
-	if protocol then
-		success = rednet.send(recipient, message)
-	end
-	success = rednet.send(recipient, message, protocol)
-	return success
-end
-
---- Receives a message or broadcast over rednet.
---- @param timeout number how long should you wait before eventually returning nil
---- @return integer sender, message message, string protocol
-function net.receive(timeout)
-	-- set timeout to nil if not provided
-	timeout = timeout or 0
-
-	return rednet.receive(timeout)
-end
-
---- This is pretty much useless, could just do
---- `rednet.broadcast()` and pass my message type. But hey, why not?
---- @param message message
---- @param protocol string | nil
-function net.broadcast(message, protocol)
-	if protocol then
-		rednet.broadcast(message)
-	end
-	rednet.broadcast(message, protocol)
 end
 
 --- ### Usage:
@@ -136,8 +101,8 @@ local function _drive(drive)
 	if hasData then
 		mountPath = "/" .. tostring(drive.getMountPath())
 	end
-
-
+	
+	
 	return {
 		label     = drive.getDiskLabel(),
 		id        = drive.getDiskID(),
@@ -153,7 +118,7 @@ local function _modem(modem)
 			table.insert(oc, i)
 		end
 	end
-
+	
 	return {
 		isWireless   = modem.isWireless(),
 		channels     = oc,
@@ -164,7 +129,7 @@ end
 local function _monitor(monitor)
 	local width, height = monitor.getSize()
 	local pos_x, pos_y = monitor.getCursorPos()
-
+	
 	return {
 		textScale = monitor.getTextScale(),
 		cursorPos = { pos_x, pos_y },
@@ -205,7 +170,7 @@ function util.getSystemInfo(...)
 		redstone_relay = _redstone_relay,
 		speaker        = _speaker
 	}
-
+	
 	for _, key in ipairs(args) do
 		local peripheral_param = peripheral.find(key)
 		if handlers[key] then
@@ -223,7 +188,7 @@ function util.getSystemInfo(...)
 end
 
 --- @param table table
---- @return table
+--- @return table 
 function util.getTableKeys(table)
 	local keys = {}
 	for key, _ in pairs(table) do
@@ -232,10 +197,12 @@ function util.getTableKeys(table)
 	return keys
 end
 
--- funktyouns
-return {
-	net = net,
-	util = util,
+-- Adds networking functions to `rednet`
+for key, value in pairs(net) do
+	rednet[key] = value
+end
 
+return {
+	util = util,
 	STATUS_CODES = STATUS_CODES,
 }
