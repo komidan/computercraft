@@ -82,7 +82,7 @@ end
 --- @param timeout number how long should you wait before eventually returning nil
 --- @return integer sender, message message, string protocol
 function net.receive(timeout)
-	-- set timeout to 0 if not provided
+	-- set timeout to nil if not provided
 	timeout = timeout or 0
 
 	return rednet.receive(timeout)
@@ -116,6 +116,111 @@ function util.getPeripherals()
         end
     end
     return peripherals
+end
+
+local function _command()
+	return "connected"
+end
+
+local function _computer(computer)
+	return {
+		label = computer.getLabel(),
+		id    = computer.getID(),
+		isOn  = computer.isOn(),
+	}
+end
+
+local function _drive(drive)
+	local hasData = drive.hasData()
+	local mountPath = nil
+	if hasData then
+		mountPath = "/" .. tostring(drive.getMountPath())
+	end
+	
+	
+	return {
+		label     = drive.getDiskLabel(),
+		id        = drive.getDiskID(),
+		hasData   = hasData,
+		mountPath = mountPath,
+	}
+end
+
+local function _modem(modem)
+	local oc = {}
+	for i = 1, 65535 do
+		if modem.isOpen(i) then
+			table.insert(oc, i)
+		end
+	end
+	
+	return {
+		isWireless   = modem.isWireless(),
+		channels     = oc,
+		channelsOpen = #oc,
+	}
+end
+
+local function _monitor(monitor)
+	local width, height = monitor.getSize()
+	local pos_x, pos_y = monitor.getCursorPos()
+	
+	return {
+		textScale = monitor.getTextScale(),
+		cursorPos = { pos_x, pos_y },
+		size      = { width, height },
+		isColor   = monitor.isColor(),
+	}
+end
+
+local function _printer(printer)
+	return {
+		paperLevel = printer.getPaperLevel(),
+		inkLevel   = printer.getInkLevel(),
+	}
+end
+
+local function _redstone_relay()
+	return "connected"
+end
+
+local function _speaker()
+	return "connected"
+end
+
+--- Pass any of these peripheral names as parameters to get info on them:\
+--- `command`, `computer`, `drive`, `modem`, `monitor`, `printer`, `redstone_relay`, `speaker`\
+--- @return table # System info and info about specified peripherals
+function util.getSystemInfo(...)
+	local args = {...}
+	local peripherals = {}
+
+	local handlers = {
+		command  	   = _command,
+		computer 	   = _computer,
+		drive    	   = _drive,
+		modem          = _modem,
+		monitor        = _monitor,
+		printer        = _printer,
+		redstone_relay = _redstone_relay,
+		speaker        = _speaker
+	}
+	
+	for _, key in ipairs(args) do
+		local peripheral_param = peripheral.find(key)
+		print(key)
+		if handlers[key] then
+			peripherals[key] = handlers[key](peripheral_param)
+		end
+	end
+
+	return {
+		label       = os.getComputerLabel(),
+		id          = os.getComputerID(),
+		version     = os.version(),
+		uptime      = os.clock(),
+		peripherals = peripherals,
+	}
 end
 
 -- funktyouns
