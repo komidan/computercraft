@@ -18,13 +18,11 @@ rednet.message(data, status_code?)
 rednet.log(from, to, message, protocol)
 rednet.formatMessage(from, to, message, protocol)
 ```
-| function | description |
+| Function | Description |
 |:-:|:-|
 |`rednet.message`| Returns a table that adds more data such as a UTC timestamp and an optional status code.|
 |`rednet.log`| Prints a formatted message sent over rednet. `Uses rednet.message()`|
 |`rednet.formatMessage`| Takes in the `rednet.message()` return table for `message`.|
 
 ---
-For more information on the library (and other code) check out the (WIP) [wiki](https://github.com/komidan/komi_cc/wiki).
-
 I'm always open to learning better ways to write code!
