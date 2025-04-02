@@ -1,5 +1,5 @@
 -- Updates all files on system.
-local drive = peripheral.find("drive")
+local isDiskPresent = peripheral.find("drive").isDiskPresent()
 
 URLS = {
 	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/klib.lua",
@@ -19,7 +19,7 @@ print("\nPress any button to continue.")
 read()
 
 local onDisk = nil
-if drive then
+if isDiskPresent then
 	::diskInstall::
 	print("Install to disk? (y/n)")
 	local input = string.lower(read())
