@@ -43,16 +43,10 @@ for i = 1, #URLS do
 end
 
 -- move all files to correct paths
-if onDisk then
-	fs.move("klib.lua", "disk/chocolat/lib/klib.lua")
-	fs.move("chocolat.lua", "disk/chocolat/os/chocolat.lua")
-	fs.move("startup.lua", "disk/chocolat/os/startup.lua")
-	fs.move("update.lua", "disk/chocolat/update.lua")
-else
-	fs.move("klib.lua", "chocolat/lib/klib.lua")
-	fs.move("chocolat.lua", "chocolat/os/chocolat.lua")
-	fs.move("startup.lua", "chocolat/os/startup.lua")
-	fs.move("update.lua", "chocolat/update.lua")
-end
+fs.move("klib.lua", "chocolat/lib/klib.lua")
+fs.move("chocolat.lua", "chocolat/os/chocolat.lua")
+fs.move("startup.lua", "chocolat/os/startup.lua")
+fs.move("install.lua", "chocolat/install.lua")
+if onDisk then fs.move("chocolat", "disk/chocolat") end
 
 os.reboot()
