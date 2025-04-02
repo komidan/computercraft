@@ -1,5 +1,5 @@
 -- Startup Sequence, Customizable
-local cc   = require("cc.strings")
+local cc = require("cc.strings")
 
 -- Customize These Variables
 local osName = "ChocolatOS (Turtle)"
@@ -12,7 +12,7 @@ local w_center = width * 0.5
 local h_center = height * 0.5
 
 local osProgressBar = ""
-for i = 1, width * 0.33 do
+for _ = 1, width * 0.33 do
 	local osProgressBarEnsured = cc.ensure_width(progressBarStart .. osProgressBar, width * 0.33 - 1)
 	term.clear()
 	term.setCursorPos(w_center - (#osName * 0.5 - 1), h_center - 1)

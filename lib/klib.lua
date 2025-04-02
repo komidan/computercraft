@@ -248,6 +248,43 @@ function inv.find(itemName)
     return -1
 end
 
+--- Takes into account non-stackables or 16-stack items and subtracts the "no longer possible" space from `remaining`
+--- @return table # info about space taken up/left over
+function inv.getCapacityInfo()
+	local remaining    = 1024 -- 64 * 16
+	local usedCapacity = 0
+
+	local verbose = {}
+	for slot = 1, 16 do
+		local item = turtle.getItemDetail(slot)
+
+		-- Skip empty slots
+		if item == nil then goto skip end
+
+		-- Take remaining and subtract the "possible missing". For example a max 16 stack item forces
+		-- a loss of 48 possible items (1024 - 48) - 12 = 964. Subtracting another 4 from the total
+		-- would be the difference between a 16 max stack and item.count.
+		local itemSpaceRemaining = turtle.getItemSpace(slot)
+		if item.count > 0 and itemSpaceRemaining == 0 then
+			remaining = remaining - 64
+		elseif item.count > 0 and itemSpaceRemaining < 16 then
+			remaining = (remaining - 48) - item.count
+		else
+			remaining = remaining - item.count
+		end
+
+		usedCapacity = usedCapacity + item.count
+		verbose[item.name] = item.count
+		::skip::
+	end
+
+	return {
+		remaining = remaining,
+		usedCapacity = usedCapacity,
+		verbose = verbose,
+	}
+end
+
 -- End of library
 -- insert functions to tables
 turtle["inv"] = inv
