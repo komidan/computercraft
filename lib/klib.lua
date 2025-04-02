@@ -1,9 +1,6 @@
 -- komi library
 -- built for CC: Tweaked 1.21.1
 
-local net = {}
-local util = {}
-
 --- @alias message table
 --- | 'data' your data...
 --- | 'timestamp' MM/DD/YYYY HH:MM:SS
@@ -23,6 +20,7 @@ local STATUS_CODES = {
 	NOT_FOUND    = 404
 }
 
+local net = {}
 --- Formats a Message into a loggable/printable string
 --- @param from integer
 --- @param to integer
@@ -64,6 +62,7 @@ function net.message(data, status_code)
 	return message
 end
 
+local util = {}
 --- ### Usage:
 --- ```lua
 --- local p = util.getPeripherals()
@@ -197,7 +196,62 @@ function util.getTableKeys(table)
 	return keys
 end
 
--- Adds networking functions to `rednet`
+-- TURTLE FUNCTIONS
+local inv = {}
+--- @return table # returns table 1,16 of items & count
+function inv.get()
+    local inventory = {}
+    for slot = 1,16 do
+        local item = turtle.getItemDetail(slot)
+        if item then
+            inventory[slot] = {
+                name = item.name,
+                count = item.count
+            }
+        end
+    end
+    return inventory
+end
+
+--- @param slotA integer ranged 1,16
+--- @param slotB integer ranged 1,16
+--- @param count integer ranged 1,64 defaults to entire stack
+--- @return boolean # true if successful
+function inv.transfer(slotA, slotB, count)
+    if slotA > 16 or slotB > 16 or (count and count > 64) then return false end
+    turtle.select(slotA)
+    -- default to max count if count `nil`
+    count = count or turtle.getItemCount()
+    return turtle.transferTo(slotB, count)
+end
+
+--- @param slot integer ranged 1,16
+--- @param count integer ranged 1,16 defaults to entire stack
+--- @return boolean # true if successful 
+function inv.drop(slot, count)
+	if slot > 16 or (count and count > 64) then return false end
+    -- default to max count if count `nil`
+    count = count or turtle.getItemCount(slot)
+    turtle.select(slot)
+    return turtle.drop(count)
+end
+
+--- @param itemName string name of item
+--- @return integer # slot of item, -1 if item doesn't exist
+function inv.find(itemName)
+    for slot = 1, 16 do
+        local item = turtle.getItemDetail(slot)
+		if item and item.name == itemName then
+            return slot
+        end
+    end
+    return -1
+end
+
+-- End of library
+-- insert functions to tables
+turtle["inv"] = inv
+
 for key, value in pairs(net) do
 	rednet[key] = value
 end

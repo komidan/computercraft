@@ -2,7 +2,7 @@
 local cc   = require("cc.strings")
 
 -- Customize These Variables
-local osName = "ChocolatOS"
+local osName = "ChocolatOS (Turtle)"
 local progressBarStart  = "["
 local progressBarMiddle = ":"
 local progressBarEnd    = "]"
