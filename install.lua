@@ -45,7 +45,7 @@ end
 -- move all files to correct paths
 fs.move("klib.lua", "chocolat/lib/klib.lua")
 fs.move("chocolat.lua", "chocolat/os/chocolat.lua")
-fs.move("startup.lua", "chocolat/os/startup.lua")
+fs.copy("startup.lua", "chocolat/os/startup_copy.lua") -- incase you want to transfer the OS between systems on the disk itself
 fs.move("install.lua", "chocolat/install.lua")
 if onDisk then fs.move("chocolat", "disk/chocolat") end
 
