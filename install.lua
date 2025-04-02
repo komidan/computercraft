@@ -2,18 +2,18 @@
 local isDiskPresent = peripheral.find("drive").isDiskPresent()
 
 URLS = {
-	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/klib.lua",
+	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/lib/klib.lua",
 	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/os/startup.lua",
 	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/os/chocolat.lua",
-	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/os/update.lua",
+	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/install.lua",
 }
 
 term.clear()
 term.setCursorPos(1, 1)
 
-print("ChocolatOS Update")
+print("ChocolatOS Install/Update")
 term.setTextColor(colors.yellow)
-print("WARNING: It is suggested to kill any scripts before updating!")
+print("WARNING: It is suggested to kill any scripts before installing/updating!")
 term.setTextColor(colors.white)
 print("\nPress any button to continue.")
 read()
