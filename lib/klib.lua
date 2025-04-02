@@ -1,5 +1,5 @@
--- komi library
--- built for CC: Tweaked 1.21.1
+-- komidan, https://github.com/komidan 
+-- Library built for CC: Tweaked 1.21.1
 
 --- @alias message table
 --- | 'data' your data...

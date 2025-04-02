@@ -1,4 +1,6 @@
--- Updates all files on system.
+-- komidan, https://github.com/komidan
+-- Main OS Install Script
+
 local isDiskPresent = peripheral.find("drive").isDiskPresent()
 
 URLS = {
@@ -49,7 +51,7 @@ print("moving files from /root/ to /chocolat/")
 fs.move("klib.lua", "chocolat/klib.lua")
 fs.move("chocolat.lua", "chocolat/os/chocolat.lua")
 fs.copy("startup.lua", "chocolat/os/startup_copy.lua") -- incase you want to transfer the OS between systems on the disk itself
-fs.move("install.lua", "chocolat/os/update.lua")
+fs.move("install.lua", "chocolat/os/install.lua")
 if onDisk then
 	print("copying over to /disk/")
 	fs.move("chocolat", "disk/chocolat")

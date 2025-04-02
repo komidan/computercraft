@@ -1,8 +1,10 @@
--- Startup Sequence, Customizable
+-- komidan, https://github.com/komidan
+-- Startup Sequence for ChocolatOS (Turtle), Customizable
+
 local cc = require("cc.strings")
 
 -- Customize These Variables
-local osName = "ChocolatOS (Turtle)"
+local osName = "ChocolatOS (Turtle Edition)"
 local progressBarStart  = "["
 local progressBarMiddle = ":"
 local progressBarEnd    = "]"

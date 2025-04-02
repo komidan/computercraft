@@ -1,4 +1,6 @@
--- Updates all files on system.
+-- komidan, https://github.com/komidan
+-- Turtle Install Script
+
 URLS = {
 	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/lib/klib.lua",
 	"https://raw.githubusercontent.com/komidan/komi_cc/refs/heads/main/turtle/startup.lua",
@@ -30,6 +32,6 @@ end
 print("moving files from /root/ to /chocolat/")
 fs.move("klib.lua", "chocolat/klib.lua")
 fs.copy("startup.lua", "chocolat/turtle/startup_copy.lua") -- incase you want to transfer the OS between systems on the disk itself
-fs.move("install.lua", "chocolat/turtle/update.lua")
+fs.move("install.lua", "chocolat/turtle/.lua")
 
 os.reboot()
