@@ -33,24 +33,26 @@ if isDiskPresent then
 	end
 end
 
+-- remove old files
 fs.delete("disk/chocolat/")
 fs.delete("chocolat/")
 
--- get all the files to root
+-- get all the new files from github
 for i = 1, #URLS do
 	shell.run("wget " .. URLS[i])
 end
 
+-- move all files to correct paths
 if onDisk then
 	fs.move("klib.lua", "disk/chocolat/lib/klib.lua")
 	fs.move("chocolat.lua", "disk/chocolat/os/chocolat.lua")
 	fs.move("startup.lua", "disk/chocolat/os/startup.lua")
-	fs.move("update.lua", "disk/chocolat/os/update.lua")
+	fs.move("update.lua", "disk/chocolat/update.lua")
 else
 	fs.move("klib.lua", "chocolat/lib/klib.lua")
 	fs.move("chocolat.lua", "chocolat/os/chocolat.lua")
 	fs.move("startup.lua", "chocolat/os/startup.lua")
-	fs.move("update.lua", "chocolat/os/update.lua")
+	fs.move("update.lua", "chocolat/update.lua")
 end
 
 os.reboot()
